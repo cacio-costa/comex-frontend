@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "Projeto frontend do melhor ecommerce do Brasil: Comex!",
     "main": "index.js",
+    "type": "module",
     "scripts": {
         "test": "jest",
         "test:essencial": "jest -t Essencial",
@@ -29,5 +30,8 @@
     "homepage": "https://github.com/level-up-obx/comex-frontend#readme",
     "devDependencies": {
         "jest": "^29.4.1"
+    },
+    "dependencies": {
+        "uuid": "^9.0.0"
     }
 }
