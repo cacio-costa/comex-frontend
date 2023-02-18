@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from '/node_modules/uuid/dist/esm-browser/index.js';
 
 function formataData() {
     let [mes, dia, ano] = new Date()
@@ -28,6 +28,10 @@ export function criaProduto(nome, descricao, preco, quantidadeEmEstoque, categor
         categoria: categoria,
         criacao: formataData()
     };
+}
+
+export function criaEndereco(logradouro, complemento, bairro, cidade, uf, cep) {
+    return { uf, cep, bairro, cidade, logradouro, complemento };
 }
 
 export function criaCliente(nome, sobrenome, cpf, telefone, email, endereco) {

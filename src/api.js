@@ -1,4 +1,11 @@
-let categorias = [];
+import { criaEndereco, criaCategoria } from "./modelo.js";
+
+let categorias = [
+    criaCategoria('INFORMÁTICA'),
+    criaCategoria('MÓVEIS'),
+    criaCategoria('LIVROS')
+];
+
 let produtos = [];
 
 export function salvaProduto(produto) {
@@ -14,24 +21,35 @@ export function salvaCategoria(categoria) {
 }
 
 export function listaCategorias() {
-    return categorias;
+    return Promise.resolve(categorias);
 }
 
-export async function consultaEndereco(cep) {
+export function buscaCategoriaPorId(id) {
+    let categoria = categorias.find(c => c.id === id);
+    return categoria
+         ? Promise.resolve(categoria) 
+         : Promise.reject(`Categoria inexistente: ${id}`);
+
+}
+
+export function consultaEndereco(cep) {
     let url = `https://viacep.com.br/ws/${cep}/json/`;
 
-    /*
     return fetch(url)
         .then(function(resposta) {
             return resposta.json();
         })
-        .then(dadosEmJSON => {
-            return dadosEmJSON;
+        .then(function(json) {
+            if (json.erro) {
+                return Promise.reject(`Cep inexistente: ${cep}`);
+            }
+            
+            return criaEndereco(json.logradouro, json.complemento, json.bairro, json.localidade, json.uf, cep);
+        })
+        .catch(function(erroHttp) {
+            console.log('Falha ao fazer requisição para API', erroHttp);
+            //return Promise.reject('Falha ao consultar endereço. Tente novamente dentro de 2 minutos.')
+
+            return criaEndereco('', '', '', '', '', cep);
         });
-    */
-
-    let resposta = await fetch(url);
-    let dadosEmJSON = await resposta.json();
-
-    return dadosEmJSON;
 }
