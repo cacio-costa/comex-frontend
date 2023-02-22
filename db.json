@@ -1,0 +1,12 @@
+{
+  "clientes": [],
+  "produtos": [],
+  "categorias": [
+    {
+      "id": "294d1ad7-bd08-42c3-b69b-820b5f414072",
+      "nome": "teste",
+      "status": "ATIVA",
+      "criacao": "2023-02-20"
+    }
+  ]
+}
