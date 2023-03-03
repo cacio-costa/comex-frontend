@@ -1,12 +1,70 @@
 {
-  "clientes": [],
-  "produtos": [],
+  "clientes": [
+    {
+      "id": "64f29ae2-65b7-4170-b003-9e28bd7fe114",
+      "nome": "Fulano",
+      "sobrenome": "de Tal",
+      "cpf": "004.636.051-44",
+      "telefone": "(61) 99999-9999",
+      "email": "fulano@email.com",
+      "endereco": {
+        "uf": "DF",
+        "cep": "71900-100",
+        "bairro": "Norte (Águas Claras)",
+        "cidade": "Brasília",
+        "logradouro": "Avenida das Castanheiras",
+        "complemento": "Real Splendor"
+      },
+      "criacao": "2023-03-01"
+    },
+    {
+      "id": "2c40df9e-a7ec-413b-9e99-15e8fbf43c1f",
+      "nome": "Beltrano",
+      "sobrenome": "do Mal",
+      "cpf": "004.636.051-44",
+      "telefone": "(88) 88888-8888",
+      "email": "beltrano@email.com",
+      "endereco": {
+        "uf": "DF",
+        "cep": "71900-100",
+        "bairro": "Norte (Águas Claras)",
+        "cidade": "Brasília",
+        "logradouro": "Avenida das Castanheiras",
+        "complemento": "Real Splendor"
+      },
+      "criacao": "2023-03-01"
+    }
+  ],
+  "produtos": [
+    {
+      "id": "54a18686-989c-4c98-a3b4-3b9fdac2bf9d",
+      "nome": "Placa-mãe",
+      "descricao": "Placa-mãe sinistrona para gamer",
+      "preco": "2000",
+      "quantidadeEmEstoque": "5",
+      "categoria": "4c9178e4-3d7a-4231-8c42-1697aa8836b0",
+      "url": "https://images.unsplash.com/photo-1562408590-e32931084e23?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2970&q=80",
+      "criacao": "2023-03-03"
+    }
+  ],
   "categorias": [
     {
-      "id": "294d1ad7-bd08-42c3-b69b-820b5f414072",
-      "nome": "teste",
+      "id": "e2b3cf4e-c5fc-4916-b621-9ab19066b91e",
+      "nome": "Móveis",
       "status": "ATIVA",
-      "criacao": "2023-02-20"
+      "criacao": "2023-03-01"
+    },
+    {
+      "id": "ea32aa39-023c-4544-bcb7-fb19566d2878",
+      "nome": "Livros",
+      "status": "ATIVA",
+      "criacao": "2023-03-01"
+    },
+    {
+      "id": "4c9178e4-3d7a-4231-8c42-1697aa8836b0",
+      "nome": "Celulares",
+      "status": "ATIVA",
+      "criacao": "2023-03-01"
     }
   ]
 }

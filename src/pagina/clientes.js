@@ -1,7 +1,8 @@
 import IMask from '/node_modules/imask/esm/index.js';
 
-import { consultaEndereco } from '../api.js';
+import * as api from '../api.js';
 import * as modelo from '../modelo.js';
+import * as validacao from '../validacao.js';
 
 let campoUf = document.getElementById('uf');
 let campoBairro = document.getElementById('bairro');
@@ -28,10 +29,44 @@ let campoTelefone = IMask(document.getElementById('telefone'), {
     ]
 });
 
+const regrasDeValidacao = {
+    cpf: {
+        funcoes: [modelo.validaCpf]
+    },
+    nome: {},
+    sobrenome: {},
+    telefone: {},
+    email: {},
+    cep: {},
+    logradouro: {},
+    bairro: {},
+    cidade: {},
+    uf: {}
+};
+
+function configuraValidacoesNosCampos() {
+    let campos = [
+        campoBairro, 
+        campoCep.el.input, 
+        campoCidade, 
+        campoCpf.el.input, 
+        campoEmail, 
+        campoLogradouro, 
+        campoNome, 
+        campoSobrenome,
+        campoTelefone.el.input,
+        campoUf
+    ];
+
+    campos.forEach(campo => validacao.registraCampoParaValidacao(campo, regrasDeValidacao));
+}
+
+
+
 
 campoCep.on("complete", function() {
     console.log(arguments);
-    consultaEndereco(campoCep.unmaskedValue)
+    api.consultaEndereco(campoCep.unmaskedValue)
         .then(function(endereco) {
             campoUf.value = endereco.uf;
             campoBairro.value = endereco.bairro;
@@ -41,10 +76,24 @@ campoCep.on("complete", function() {
         });
 });
 
-let formulario = document.getElementById('formulario-cliente');
-formulario.addEventListener('submit', function(evento) {
-    evento.preventDefault();
-    
+function limpaFormulario() {
+    campoCpf.value = ''; 
+    campoNome.value = ''; 
+    campoEmail.value = ''; 
+    campoTelefone.value = ''; 
+    campoSobrenome.value = ''; 
+
+    campoUf.value = ''; 
+    campoCep.value = '';
+    campoBairro.value = ''; 
+    campoCidade.value = ''; 
+    campoLogradouro.value = ''; 
+    campoComplemento.value = '';
+
+    formulario.classList.remove('was-validated');
+}
+
+function salvaCliente() {
     let endereco = modelo.criaEndereco(
         campoLogradouro.value, 
         campoComplemento.value, 
@@ -63,5 +112,25 @@ formulario.addEventListener('submit', function(evento) {
         endereco
     );
 
-    console.log(cliente);
+    api.salvaCliente(cliente)
+        .then(clienteSalvo => {
+            limpaFormulario();
+            alert(`Cliente ${clienteSalvo.nome} (${clienteSalvo.cpf}) cadastrado com sucesso.`);
+        })
+        .catch(alert);
+}
+
+let formulario = document.getElementById('formulario-cliente');
+formulario.addEventListener('submit', e => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    let formularioValido = formulario.checkValidity();
+    if (formularioValido) {
+        salvaCliente();
+    } else {
+        formulario.classList.add('was-validated');
+    }
 });
+
+window.addEventListener('load', configuraValidacoesNosCampos);

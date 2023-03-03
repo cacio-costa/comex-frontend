@@ -35,6 +35,7 @@
     "dependencies": {
         "imask": "^6.4.3",
         "json-server": "^0.17.1",
+        "luxon": "^3.2.1",
         "uuid": "^9.0.0"
     }
 }

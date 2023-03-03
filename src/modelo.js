@@ -18,7 +18,7 @@ export function criaCategoria(nome) {
     };
 }
 
-export function criaProduto(nome, descricao, preco, quantidadeEmEstoque, categoria) {
+export function criaProduto(nome, descricao, preco, quantidadeEmEstoque, categoria, url) {
     return {
         id: uuidv4(),
         nome: nome,
@@ -26,6 +26,7 @@ export function criaProduto(nome, descricao, preco, quantidadeEmEstoque, categor
         preco: preco,
         quantidadeEmEstoque: quantidadeEmEstoque,
         categoria: categoria,
+        url: url,
         criacao: formataData()
     };
 }
@@ -45,6 +46,68 @@ export function criaCliente(nome, sobrenome, cpf, telefone, email, endereco) {
         endereco: endereco,
         criacao: formataData()
     };
+}
+
+export function isCategoriaAtiva(categoria) {
+    return categoria.status == 'ATIVA';
+}
+
+function cpfComFormatoValido(cpf) {
+    return cpf
+        && cpf.trim().length
+        && /[0-9]{3}\.[0-9]{3}\.[0-9]{3}-[0-9]{2}/g.test(cpf.trim());
+}
+
+function numerosRepetidos(cpf) {
+    const numerosRepetidos = [
+        '00000000000',
+        '11111111111',
+        '22222222222',
+        '33333333333',
+        '44444444444',
+        '55555555555',
+        '66666666666',
+        '77777777777',
+        '88888888888',
+        '99999999999'
+    ]
+
+    return numerosRepetidos.includes(cpf)
+}
+
+function digitoValido(cpf, indiceDoDigito, multiplicador) {
+    let soma = 0;
+    for (let tamanho = 0; tamanho < indiceDoDigito; tamanho++) {
+        soma += cpf[tamanho] * multiplicador;
+        multiplicador--;
+    }
+
+    soma = (soma * 10) % 11;
+
+    if (soma == 10 || soma == 11) {
+        soma = 0;
+    }
+
+    return soma == cpf[indiceDoDigito];
+}
+
+export function validaCpf(cpf) {
+    console.log('VALIDANDO CPF...');
+    if (!cpfComFormatoValido(cpf)) {
+        return 'Formato inválido.';
+    }
+
+    let somenteNumeros = cpf.trim().replaceAll(/\.|-/g, '');
+    console.log('VALIDANDO REPETIDOS...', somenteNumeros);
+    if (numerosRepetidos(somenteNumeros)) {
+        return 'Todos os números iguais.';
+    }
+
+    if (!digitoValido(somenteNumeros, 9, 10) || !digitoValido(somenteNumeros, 10, 11)) {
+        return 'Dígitos verificadores inválidos.';
+    }
+
+    return '';
 }
 
 
