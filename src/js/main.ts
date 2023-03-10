@@ -1,8 +1,9 @@
-import * as api from '../api.js';
+import * as api from './api.js';
+import { Produto } from './modelo-classes.js';
 
-let painelDeProdutos = document.querySelector('#painel-de-produtos');
+let painelDeProdutos: HTMLElement = document.querySelector('#painel-de-produtos');
 
-function criaCardDeProduto(produto) {
+function criaCardDeProduto(produto: Produto): string {
     return `
         <div class="col-sm-12 col-md-4 col-lg-3 mb-4">
             <div class="card">
@@ -17,10 +18,12 @@ function criaCardDeProduto(produto) {
     `;
 }
 
-function exibeProdutos() {
+function exibeProdutos(): Promise<void> {
     return api.listaProdutos()
-        .then(produtos => produtos.map(p => criaCardDeProduto(p)))
-        .then(cards => painelDeProdutos.innerHTML = cards)
+        .then(produtos => produtos.map(p => criaCardDeProduto(p)).join(''))
+        .then(cards => {
+            painelDeProdutos.innerHTML = cards;
+        })
         .catch(alert);
 }
 

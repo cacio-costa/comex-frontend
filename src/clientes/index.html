@@ -63,48 +63,88 @@
     
     <main class="container mt-5">
         <section id="cadastro-categoria">
-            <h3 class="text-center">Novo produto</h3>
+            <h3 class="text-center">Cadastro de clientes</h3>
             
-            <form action="#" id="formulario-produto">
+            <form action="/clientes/salvar" id="formulario-cliente" novalidate>
+                <fieldset>
+                    <legend>Dados básicos</legend>
+                    <div class="row mb-4">
+                        <div class="col">
+                            <label for="cpf" class="form-label">CPF:</label>
+                            <input class="form-control" id="cpf" name="cpf" required pattern="[0-9]{3}\.[0-9]{3}\.[0-9]{3}-[0-9]{2}">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col">
+                            <label for="nome" class="form-label">Nome:</label>
+                            <input class="form-control" id="nome" name="nome" placeholder="Informe o PRIMEIRO nome do cliente..." required minlength="2">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col">
+                            <label for="sobrenome" class="form-label">Sobrenome:</label>
+                            <input class="form-control" id="sobrenome" name="sobrenome" placeholder="Informe os demais nomes do cliente..." required minlength="2">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col">
+                            <label for="telefone" class="form-label">Telefone:</label>
+                            <input class="form-control" id="telefone" name="telefone" pattern="\([0-9]{2}\)\s[0-9]{4,5}-[0-9]{4}">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col">
+                            <label for="email" class="form-label">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                </fieldset>
+                
+                <fieldset>
+                    <legend>Endereço</legend>
+                    <div class="row mb-4">
+                        <div class="col">
+                            <label for="cep" class="form-label">Cep:</label>
+                            <input class="form-control" id="cep" name="cep" pattern="[0-9]{5}-[0-9]{3}" required>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col">
+                            <label for="logradouro" class="form-label">Logradouro:</label>
+                            <input class="form-control" id="logradouro" name="logradouro" required>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col">
+                            <label for="complemento" class="form-label">Complemento:</label>
+                            <input class="form-control" id="complemento" name="complemento">
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col">
+                            <label for="bairro" class="form-label">Bairro:</label>
+                            <input class="form-control" id="bairro" name="bairro" required>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col">
+                            <label for="cidade" class="form-label">Cidade:</label>
+                            <input class="form-control" id="cidade" name="cidade" required>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col">
+                            <label for="uf" class="form-label">UF:</label>
+                            <input class="form-control" id="uf" name="uf" minlength="2" required>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                </fieldset>
+                
                 <div class="row">
-                    <div class="col-6">
-                        <label for="nome">Nome:</label>
-                        <input class="form-control mb-3" id="nome" name="nome">
+                    <div class="col text-center">
+                        <button type="submit" class="btn btn-primary">Salvar</button>
                     </div>
-                    <div class="col-3">
-                        <label for="preco">Preço:</label>
-                        <input class="form-control mb-3" id="preco" name="preco">
-                    </div>
-                    <div class="col-3">
-                        <label for="estoque">Quantidade em estoque:</label>
-                        <input class="form-control mb-3" id="estoque" name="estoque">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-6">
-                        <label for="descricao">Descrição:</label>
-                        <textarea class="form-control mb-3" id="descricao" name="descricao" rows="3"></textarea>
-                    </div>
-                    <div class="col-3">
-                        <label for="url">URL:</label>
-                        <input class="form-control mb-3" id="url" name="url">
-                    </div>
-                    <div class="col-3">
-                        <label for="categoria">Categoria:</label>
-                        <select class="form-control mb-3" id="categoria" name="categoria">
-                            <option value="">Selecione...</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row d-flex justify-content-center mt-5">
-                    <div class="col-3">
-                        <button type="submit" class="btn btn-primary w-100" id="botao-salvar-produto">Salvar</button>
-                    </div>
-                </div>
+                </div>    
             </form>
         </section>
     </main>
-    
+
     <footer id="rodape" class="d-flex flex-column flex-lg-row justify-content-lg-between align-items-lg-center">
         <div id="rodape__icones" class="d-flex flex-column align-items-center mb-4">
             <svg class="imagem" width="116" height="43" viewBox="0 0 116 43" xmlns="http://www.w3.org/2000/svg">
@@ -131,7 +171,7 @@
             <a href="#" class="nav-link">Entrar</a>
         </div>
     </footer>
-
-    <script src="src/pagina/produtos.js" type="module"></script>
+    
+    <script src="./clientes.ts" type="module"></script>
 </body>
 </html>

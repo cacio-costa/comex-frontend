@@ -33,6 +33,23 @@
         "complemento": "Real Splendor"
       },
       "criacao": "2023-03-01"
+    },
+    {
+      "id": "822a0add-ae5b-40cf-8836-5358a6c189be",
+      "cpf": "004.636.051-44",
+      "nome": "Cicrano",
+      "email": "cicrano@email.com",
+      "telefone": "(77) 77777-7777",
+      "sobrenome": "do Sal",
+      "criacao": "2023-03-06T22:09:07.951Z",
+      "endereco": {
+        "uf": "DF",
+        "cep": "71900100",
+        "bairro": "Norte (Águas Claras)",
+        "cidade": "Brasília",
+        "logradouro": "Avenida das Castanheiras",
+        "complemento": "71900-100"
+      }
     }
   ],
   "produtos": [
@@ -44,27 +61,49 @@
       "quantidadeEmEstoque": "5",
       "categoria": "4c9178e4-3d7a-4231-8c42-1697aa8836b0",
       "url": "https://images.unsplash.com/photo-1562408590-e32931084e23?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2970&q=80",
-      "criacao": "2023-03-03"
+      "criacao": "2023-03-06T17:45:00.000Z"
+    },
+    {
+      "id": "f7d5a47e-034c-4103-bce2-00eb0d14e887",
+      "url": "https://images.unsplash.com/photo-1615411836704-2c1636331bc2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2656&q=80",
+      "nome": "Celular",
+      "preco": "2000",
+      "criacao": "2023-03-06T21:57:52.341Z",
+      "categoria": "3f53c030-9a14-473d-a5ec-d1609e8ff21b",
+      "descricao": "Celular topzeira",
+      "quantidadeEmEstoque": 30
     }
   ],
   "categorias": [
     {
-      "id": "e2b3cf4e-c5fc-4916-b621-9ab19066b91e",
-      "nome": "Móveis",
+      "id": "00ffc0ae-a0a3-4139-94a4-e6b6f5065610",
+      "nome": "Eletrônicos",
       "status": "ATIVA",
-      "criacao": "2023-03-01"
+      "criacao": "2023-03-06T21:49:44.226Z"
     },
     {
-      "id": "ea32aa39-023c-4544-bcb7-fb19566d2878",
-      "nome": "Livros",
-      "status": "ATIVA",
-      "criacao": "2023-03-01"
-    },
-    {
-      "id": "4c9178e4-3d7a-4231-8c42-1697aa8836b0",
+      "id": "3f53c030-9a14-473d-a5ec-d1609e8ff21b",
       "nome": "Celulares",
       "status": "ATIVA",
-      "criacao": "2023-03-01"
+      "criacao": "2023-03-06T21:49:48.794Z"
+    },
+    {
+      "id": "611ea781-54ea-4543-b01c-dd8099a02e04",
+      "nome": "Informática",
+      "status": "ATIVA",
+      "criacao": "2023-03-06T21:49:57.745Z"
+    },
+    {
+      "id": "6d67897c-0455-4c33-9944-f868f4cb42de",
+      "nome": "Casa",
+      "status": "ATIVA",
+      "criacao": "2023-03-10T17:55:28.301Z"
+    },
+    {
+      "id": "ba681e3c-b484-4795-b13b-6a3192beb81d",
+      "nome": "Móveis embutidos",
+      "status": "ATIVA",
+      "criacao": "2023-03-10T18:30:39.762Z"
     }
   ]
 }

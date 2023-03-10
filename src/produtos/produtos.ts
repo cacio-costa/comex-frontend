@@ -1,14 +1,15 @@
-import * as api from '../api.js';
-import * as modelo from '../modelo.js';
-import IMask from '/node_modules/imask/esm/index.js';
+import * as api from '../js/api.js';
+import { Produto, Categoria } from '../js/modelo-classes.js';
+import IMask from 'imask';
 
-let campoUrl = document.getElementById('url');
-let campoNome = document.getElementById('nome');
-let campoEstoque = document.getElementById('estoque');
-let campoDescricao = document.getElementById('descricao');
-let campoCategoria = document.getElementById('categoria');
+let campoUrl: HTMLInputElement = document.querySelector('#url');
+let campoNome: HTMLInputElement = document.querySelector('#nome');
+let campoPreco: HTMLInputElement = document.querySelector('#preco');
+let campoEstoque: HTMLInputElement = document.querySelector('#estoque');
+let campoDescricao: HTMLInputElement = document.querySelector('#descricao');
+let campoCategoria: HTMLInputElement = document.querySelector('#categoria');
 
-let campoPreco = IMask(document.getElementById('preco'), {
+let mascaraPreco = IMask(campoPreco, {
     mask: Number,
     scale: 2,
     thousandsSeparator: '.',
@@ -17,19 +18,19 @@ let campoPreco = IMask(document.getElementById('preco'), {
     padFractionalZeros: true
 });
 
-function criaOptionsDeCategorias() {
+function criaOptionsDeCategorias(): void {
     api.listaCategorias()
         .then(categorias => {
-            let optionsDasCategorias = categorias.filter(c => modelo.isCategoriaAtiva(c))
+            let optionsDasCategorias = categorias.filter(c => c.isAtiva)
                 .map(c => `<option value="${c.id}">${c.nome}</option>`);
 
             let options = ['<option value="">Selecione</option>', ...optionsDasCategorias];
 
-            campoCategoria.innerHTML = options;
+            campoCategoria.innerHTML = options.join('');
         });
 }
 
-function limpaFormulario() {
+function limpaFormulario(): void {
     campoCategoria.value = '';
     campoDescricao.value = '';
     campoEstoque.value = '';
@@ -38,14 +39,14 @@ function limpaFormulario() {
     campoUrl.value = '';
 }
 
-function salvaProduto(evento) {
+function salvaProduto(evento: SubmitEvent): Promise<void> {
     evento.preventDefault();
 
-    let novoProduto = modelo.criaProduto(
+    let novoProduto = new Produto(
         campoNome.value, 
         campoDescricao.value, 
-        campoPreco.unmaskedValue, 
-        campoEstoque.value, 
+        parseInt(mascaraPreco.unmaskedValue), 
+        parseInt(campoEstoque.value), 
         campoCategoria.value,
         campoUrl.value
     );

@@ -1,10 +1,11 @@
-import * as modelo from '../modelo.js';
-import * as api from '../api.js';
+import { Categoria } from '../js/modelo-classes.js';
+import { DateUtil } from '../js/date-util.js';
+import * as api from '../js/api.js';
 
 
-function carregaCategorias() {
+function carregaCategorias(): Promise<void> {
     return api.listaCategorias()
-            .then(categorias => {
+            .then((categorias: Categoria[]) => {
                 listagemDeCategorias.innerHTML = '';
                 console.log('limpou...', categorias);
 
@@ -14,10 +15,10 @@ function carregaCategorias() {
             .catch(alert);
 }
 
-function salvaCategoria(evento) {
+function salvaCategoria(evento: SubmitEvent): void {
     evento.preventDefault();
 
-    let novaCategoria = modelo.criaCategoria(campoNome.value);
+    let novaCategoria = new Categoria(campoNome.value);
     api.salvaCategoria(novaCategoria)
         .then(categoriaSalva => {
             alert(`Categoria ${categoriaSalva.nome} cadastrada com sucesso.`);
@@ -30,7 +31,10 @@ function salvaCategoria(evento) {
         .catch(alert);
 }
 
-function editaCategoria(categoria) {
+function editaCategoria(categoria: Categoria): void {
+    if (categoria == null) {
+        throw new Error('Categoria não pode ser nula.');
+    }
     let novoNome = prompt('Digite o novo nome da categoria?');
 
     if (novoNome && novoNome.trim().length > 2) {
@@ -41,23 +45,23 @@ function editaCategoria(categoria) {
     }
 }
 
-function desativaCategoria(categoria) {
-    let confirmacao = confirm('Tem certeza que deseja desativar a categoria?');
+function desativaCategoria(categoria: Categoria): void {
+    let confirmou = confirm('Tem certeza que deseja desativar a categoria?');
     
-    if (confirmacao) {
+    if (confirmou) {
         api.alteraStatusDaCategoria(categoria.id, 'INATIVA')
             .then(() => carregaCategorias())
             .catch(alert);
     }        
 }
 
-function ativaCategoria(categoria) {
+function ativaCategoria(categoria: Categoria): void {
     api.alteraStatusDaCategoria(categoria.id, 'ATIVA')
         .then(() => carregaCategorias())
         .catch(alert);
 }
 
-function excluiCategoria(categoria) {
+function excluiCategoria(categoria: Categoria): void {
     let confirmacao = confirm(`Tem certeza que deseja excluir a categoria ${categoria.nome}?`);
 
     if (confirmacao) {
@@ -68,14 +72,16 @@ function excluiCategoria(categoria) {
     }
 }
 
-function criaLinhaCategoria(categoria) {
-    let exibeAtivar = modelo.isCategoriaAtiva(categoria) ? 'd-none' : '';
-    let exibeDesativar = modelo.isCategoriaAtiva(categoria) ? '' : 'd-none';
+function criaLinhaCategoria(categoria: Categoria) {
+    let exibeAtivar = categoria.isAtiva ? 'd-none' : '';
+    let exibeDesativar = categoria.isAtiva ? '' : 'd-none';
+
+    console.log('categoria', categoria, categoria.isAtiva);
 
     let linha = document.createElement('tr');
     linha.innerHTML = `<td>${categoria.nome}</td>
                        <td>${categoria.status}</td>
-                       <td>${categoria.criacao}</td>
+                       <td>${DateUtil.formataDateParaString(categoria.criacao)}</td>
                        <td>
                          <button class="btn btn-outline-secondary btn-sm editar">
                            <i class="fas fa-edit"></i>
@@ -90,7 +96,6 @@ function criaLinhaCategoria(categoria) {
                            <i class="fas fa-trash-alt"></i>
                          </button>
                        </td>`;
-
     
     linha.querySelector('.ativar').addEventListener('click', evento => ativaCategoria(categoria));
     linha.querySelector('.editar').addEventListener('click', evento => editaCategoria(categoria));
@@ -100,10 +105,10 @@ function criaLinhaCategoria(categoria) {
     return linha;
 }
 
-const campoNome = document.querySelector('#nome');
-const listagemDeCategorias = document.querySelector('#tabela-categorias tbody');
+const campoNome: HTMLInputElement = document.querySelector('#nome');
+const listagemDeCategorias: HTMLElement = document.querySelector('#tabela-categorias tbody');
 
-const formulario = document.querySelector('#formulario-categoria');
+const formulario: HTMLFormElement = document.querySelector('#formulario-categoria');
 formulario.onsubmit = salvaCategoria;
 
 window.addEventListener('load', carregaCategorias);

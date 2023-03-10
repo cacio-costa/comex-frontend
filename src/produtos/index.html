@@ -63,28 +63,45 @@
     
     <main class="container mt-5">
         <section id="cadastro-categoria">
-            <h3 class="text-center">Nova categoria</h3>
+            <h3 class="text-center">Novo produto</h3>
             
-            <form action="#" class="d-flex justify-content-center" id="formulario-categoria">
-                <div class="input-group w-50">
-                    <input class="form-control" id="nome" name="nome" placeholder="Informe o nome da nova categoria com pelo menos 2 letras...">
-                    <button type="submit" class="btn btn-primary" id="botao-salvar-categoria">Salvar</button>
+            <form action="#" id="formulario-produto">
+                <div class="row">
+                    <div class="col-6">
+                        <label for="nome">Nome:</label>
+                        <input class="form-control mb-3" id="nome" name="nome">
+                    </div>
+                    <div class="col-3">
+                        <label for="preco">Preço:</label>
+                        <input class="form-control mb-3" id="preco" name="preco">
+                    </div>
+                    <div class="col-3">
+                        <label for="estoque">Quantidade em estoque:</label>
+                        <input class="form-control mb-3" id="estoque" name="estoque">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label for="descricao">Descrição:</label>
+                        <textarea class="form-control mb-3" id="descricao" name="descricao" rows="3"></textarea>
+                    </div>
+                    <div class="col-3">
+                        <label for="url">URL:</label>
+                        <input class="form-control mb-3" id="url" name="url">
+                    </div>
+                    <div class="col-3">
+                        <label for="categoria">Categoria:</label>
+                        <select class="form-control mb-3" id="categoria" name="categoria">
+                            <option value="">Selecione...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center mt-5">
+                    <div class="col-3">
+                        <button type="submit" class="btn btn-primary w-100" id="botao-salvar-produto">Salvar</button>
+                    </div>
                 </div>
             </form>
-        </section>
-
-        <section id="listagem-categoria" class="mt-5 d-flex justify-content-center">
-            <table class="table table-sm table-hover w-75" id="tabela-categorias">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Status</th>
-                        <th>Data de criação</th> 
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
         </section>
     </main>
     
@@ -115,6 +132,6 @@
         </div>
     </footer>
 
-    <script src="src/pagina/categorias.js" type="module"></script>
+    <script src="./produtos.ts" type="module"></script>
 </body>
 </html>

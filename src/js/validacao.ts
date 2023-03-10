@@ -1,11 +1,11 @@
-const validacoesNativas = {
-    valueMissing: "Campo obrigatório.",
-    patternMismatch: "Formato inválido.",
-    tooShort: "Há menos caracteres que o necessário.",
-    tooLong: "Há mais caracteres que o permitido"
+const validacoesNativas: Record<string, string> = {
+    "valueMissing": "Campo obrigatório.",
+    "patternMismatch": "Formato inválido.",
+    "tooShort": "Há menos caracteres que o necessário.",
+    "tooLong": "Há mais caracteres que o permitido"
 };
 
-function checaValidacoesCustomizadas(campo, regras) {
+function checaValidacoesCustomizadas(campo: HTMLInputElement, regras: any): string {
     let mensagem = '';
     
     let validacoesCustomizadas = regras[campo.name] && regras[campo.name].funcoes;
@@ -22,29 +22,28 @@ function checaValidacoesCustomizadas(campo, regras) {
     return mensagem;
 }
 
-function adicionaMensagemDeErro(campo, mensagem) {
+function adicionaMensagemDeErro(campo: HTMLInputElement, mensagem: string): void {
     campo.parentNode.querySelector('.invalid-feedback').textContent = mensagem;
     campo.classList.add('is-invalid');
     campo.classList.remove('is-valid');
 }
 
-function removeMensagemDeErro(campo) {
+function removeMensagemDeErro(campo: HTMLInputElement): void {
     campo.classList.remove('is-invalid');
     campo.classList.add('is-valid');
     campo.parentNode.querySelector('.invalid-feedback').textContent = '';
 }
 
-export function registraCampoParaValidacao(campo, regras) {
+export function registraCampoParaValidacao(campo: HTMLInputElement, regras: any): void {
 
     campo.addEventListener('invalid', e => e.preventDefault());
-    campo.addEventListener('blur', e => {
+    campo.addEventListener('blur', () => {
         let validador = campo.checkValidity();
-        console.log('validador', validador);
 
         if (!validador) {
-            let erro = Object.keys(validacoesNativas).find(tipo => campo.validity[tipo]);
+            let erro = Object.keys(validacoesNativas).find(tipo => campo.validity[tipo as keyof ValidityState]);
             let mensagem = validacoesNativas[erro];
-
+            console.log('mensagem nativa...', mensagem);
             adicionaMensagemDeErro(campo, mensagem);
             return;
         }
@@ -52,9 +51,10 @@ export function registraCampoParaValidacao(campo, regras) {
         let mensagem = checaValidacoesCustomizadas(campo, regras);
         if (mensagem !== '') {
             adicionaMensagemDeErro(campo, mensagem);
+            console.log('mensagem customizada...', mensagem);
             return;
         }
-
+console.log('removendo mensagem de ', campo);
         removeMensagemDeErro(campo);
     });
 }
